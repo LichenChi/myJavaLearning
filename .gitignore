@@ -1,0 +1,99 @@
+/*对下列的数进行排序*/   #define N 8
+/*342,23 58 6 47 855 42 99*/
+/**********冒泡排序************************/
+void BubbleSort(int R[],int n)
+{
+  int i,j,temp;
+  for(i=0;i<n-1;i++)
+    for(j=n-2;j>=i;j--)
+      if(R[j]>R[j+1])
+      {
+        temp=R[j];
+        R[j]=R[j+1];
+        R[j+1]=temp;
+      }
+}
+/****************************************/
+/***********插入排序************************/
+void InsertSort(int R[],int n)
+{
+  int i,j,temp;
+  for(i=1;i<=n;i++)
+  if(R[i]<R[i-1])
+  {
+     temp=R[i];
+     j=i-1;
+     while(R[j]<temp)
+       R[j+1]=R[j--];
+     R[j+1]=temp;
+  }
+}
+/*******************************************/
+/***********选择排序***********************/
+void SelectSort(int R[],int n)
+{
+  int i,j,k,temp;
+  for(i=0;i<n;i++)
+  {
+    k=i;
+    for(j=i+1;j<n;j++)
+      if(R[j]<R[k])
+        k=j;
+    if(k!=i)
+    {
+       temp=R[k];
+       R[k]=R[i];
+       R[i]=temp;
+    }
+  }
+}
+/*****************************************/
+/**********快速排序*********************/
+void QuickSort(int R[],int low,int high)
+{
+   int pivotpos;
+   if(low<high)
+   {
+     pivotpos=Partition(R,low,high);
+     QuickSort(R,low,pivotpos-1);
+     QuickSort(R,pivotpos+1,high);
+   }
+}
+int Partition(int R[],int i,int j)
+{
+  int pivot=R[i];
+  while(i<j)
+  {
+    while(i<j&&R[j]>=pivot)j--;
+    if(i<j)
+      R[i++]=R[j];
+    while(i<j&& R[i]<=pivot)i++;
+    if(i<j)
+      R[j--]=R[i];
+  }
+  R[i]=pivot;
+  return i;
+}
+/**********************************/
+void main()
+{
+   int i;
+   int arr[]={342,23,58,6,47,855,42,99};
+   printf("Bubble Sort Result is:/n");
+   BubbleSort(arr,N);
+   for(i=0;i<N;i++)
+     printf("%d ",arr[i]);
+   printf("/nInsert Sort Result is:/n");
+   InsertSort(arr,N);
+   for(i=0;i<N;i++)
+     printf("%d ",arr[i]);
+   printf("/nSelect Sort Result is:/n");
+   SelectSort(arr,N);
+   for(i=0;i<N;i++)
+     printf("%d ",arr[i]);
+   printf("/nQuick Sort Result is:/n");
+   QuickSort(arr,0,N-1);
+   for(i=0;i<N;i++)
+     printf("%d ",arr[i]);
+   getch();
+}
